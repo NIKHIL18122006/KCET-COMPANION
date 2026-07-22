@@ -1,9 +1,14 @@
-
+import Hero from "../components/Home/Hero";
+import Features from "../components/Home/Features";
+import HowItWorks from "../components/Home/HowitWorks";
+import Subjects from "../components/Home/Subjects";
 export default function Home() {
   return (
-    <div className="pt-28">
-      <h1 className="text-5xl font-bold">Home</h1>
-      <p>Welcome to the home page!</p>
+    <div>
+      <Hero />
+      <Features />
+      <HowItWorks />
+      <Subjects />
     </div>
   );
-}
+} 

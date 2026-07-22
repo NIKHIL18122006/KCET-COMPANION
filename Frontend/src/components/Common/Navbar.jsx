@@ -37,7 +37,7 @@ return (
         {/* Logo */}
         
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="p-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 shadow-lg">
+          <div className="p-2 rounded-xl bg-linear-to-r from-blue-600 to-violet-600 shadow-lg">
             <img src={logo} alt="KCET Logo" className="h-7 w-7 object-contain"/>
           </div>
           <div>
