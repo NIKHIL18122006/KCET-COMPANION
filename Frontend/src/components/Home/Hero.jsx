@@ -2,6 +2,12 @@ import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle, Star, Trophy, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import img1 from "../../assets/img1.png";
+import gpt from "../../assets/gpt.png";
+import file from "../../assets/file.png";
+import graduation from "../../assets/graduation.png";
+import axios from "axios";
+
+
 
 export default function Hero() {
   return (
@@ -31,7 +37,7 @@ export default function Hero() {
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">
               KCET
             </span>{" "}
-            with Confidence
+            with Confidence 
           </h1>
 
           <p className="mt-6 max-w-xl text-lg text-gray-600 dark:text-gray-300">
@@ -40,7 +46,7 @@ export default function Hero() {
           </p>
 
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-            <Link
+            <Link 
               to="/register"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-4 font-semibold text-white shadow-lg transition hover:scale-105"
             >
@@ -66,15 +72,18 @@ export default function Hero() {
 
             <div className="mt-6 space-y-4">
               <div className="rounded-xl bg-blue-100 p-4 dark:bg-slate-800">
-                📈 AI Performance Analysis
+                <img src={gpt} alt="AI Icon" className="inline-block w-5 h-5 mr-2" />
+                 AI Performance Analysis
               </div>
 
               <div className="rounded-xl bg-violet-100 p-4 dark:bg-slate-800">
-                🎯 Accurate College Prediction
+                <img src={graduation} alt="Graduation Cap Icon" className="inline-block w-5 h-5 mr-2" />
+                 Accurate College Prediction
               </div>
 
               <div className="rounded-xl bg-green-100 p-4 dark:bg-slate-800">
-                📝 Previous Year Question Papers
+                <img src={file} alt="File Icon" className="inline-block w-5 h-5 mr-2" />
+                 Previous Year Question Papers
               </div>
             </div>
           </div>
