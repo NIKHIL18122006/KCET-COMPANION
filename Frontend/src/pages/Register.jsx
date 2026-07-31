@@ -25,6 +25,7 @@ function Register() {
     navigate("/dashboard");
   } catch (error) {
     console.error(error.response?.data?.message || error.message);
+    alert(error.response?.data?.message || error.message);
     navigate("/register");
   }
 };

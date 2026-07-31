@@ -1,39 +1,48 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import authService from "../services/authService";
-
+import { Navigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-    const fetchUser = async () => {
-        console.log("Calling /auth/me...");
+        const fetchUser = async () => {
+            console.log("Calling /auth/me...");
 
+            try {
+                const data = await authService.getCurrentUser();
+                console.log("Response:", data);
+                setUser(data.user);
+            } catch (error) {
+                console.log("Error:", error.response?.status);
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUser();
+    }, []);
+
+    const logout = async () => {
         try {
-            const data = await authService.getCurrentUser();
-
-            console.log("Response:", data);
-
-            setUser(data.user);
-        } catch (error) {
-            console.log("Error:", error.response?.status);
+            await authService.logout();
             setUser(null);
-        } finally {
-            setLoading(false);
+            <Navigate to="/home" replace />;
+        } catch (error) {
+            console.error(error);
         }
     };
 
-    fetchUser();
-}, []); 
     return (
         <AuthContext.Provider
             value={{
                 user,
                 setUser,
                 loading,
+                logout,
             }}
         >
             {children}
