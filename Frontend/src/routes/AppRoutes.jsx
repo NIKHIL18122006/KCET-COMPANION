@@ -9,6 +9,9 @@ import Pyqs from "../pages/Pyqs";
 import Mocktest from "../pages/Mocktest";
 import AI from "../pages/AI";
 import Profile from "../pages/Profile";
+import Topics from "../pages/Topics";
+import NumberofQuestions from "../pages/NumberofQuestions";
+import PracticeSetup from "../pages/PrcticeSetup";
 
 function Approutes(){
     return(
@@ -34,6 +37,15 @@ function Approutes(){
                 </ProtectedRoute>}/>
             <Route path="/practice" element={<ProtectedRoute>
                     <Practice/>
+                </ProtectedRoute>}/>
+            <Route path="/topics" element={<ProtectedRoute>
+                    <Topics/>
+                </ProtectedRoute>}/>
+            <Route path="/session" element={<ProtectedRoute>
+                    <NumberofQuestions/>
+                </ProtectedRoute>}/>
+            <Route path="/practice/session" element={<ProtectedRoute>
+                    <PracticeSetup/>
                 </ProtectedRoute>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
