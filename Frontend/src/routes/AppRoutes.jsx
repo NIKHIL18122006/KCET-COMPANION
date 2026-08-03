@@ -11,7 +11,7 @@ import AI from "../pages/AI";
 import Profile from "../pages/Profile";
 import Topics from "../pages/Topics";
 import NumberofQuestions from "../pages/NumberofQuestions";
-import PracticeSetup from "../pages/PrcticeSetup";
+import PracticeSetup from "../pages/PracticeSetup";
 
 function Approutes(){
     return(

@@ -20,9 +20,9 @@ function get(subject, classNum) {
     }else if(subject === "Chemistry" && classNum === 12){
         return ["Solid State","Solutions","Electrochemistry","Chemical Kinetics","Surface Chemistry","General Principles & Processes of Isolation of Elements","The p-Block Elements","The d & f Block Elements","Coordination Compounds","Haloalkanes & Haloarenes","Alcohols, Phenols & Ethers","Aldehydes, Ketones & Carboxylic Acids","Organic Compounds Containing Nitrogen","Biomolecules","Polymers","Chemistry in Everyday Life",];
     }else if(subject === "Mathematics" && classNum === 11){
-        return ["Sets","Relations & Functions","Trigonometric Functions","Complex Numbers & Quadratic Equations","Linear Inequalities","Permutations & Combinations","Binomial Theorem","Sequences & Series","Straight Lines","Conic Sections","Introduction to Three Dimensional Geometry","Limits & Derivatives","Mathematical Reasoning","Statistics","Probability",];
+        return ["Sets","Relations and Functions","Trigonometric Functions","Complex Numbers and Quadratic Equations","Linear Inequalities","Permutations and Combinations","Binomial Theorem","Sequences and Series","Straight Lines","Conic Sections","Introduction to Three Dimensional Geometry","Limits and Derivatives","Mathematical Reasoning","Statistics","Probability",];
     }else if(subject === "Mathematics" && classNum === 12){
-        return ["Relations & Functions","Inverse Trigonometric Functions","Matrices","Determinants","Continuity & Differentiability","Applications of Derivatives","Integrals","Applications of Integrals","Differential Equations","Vector Algebra","Three Dimensional Geometry","Linear Programming","Probability",];
+        return ["Relations and Functions","Inverse Trigonometric Functions","Matrices","Determinants","Continuity and Differentiability","Applications of Derivatives","Integrals","Applications of Integrals","Differential Equations","Vector Algebra","Three Dimensional Geometry","Linear Programming","Probability",];
     }
 
 }
