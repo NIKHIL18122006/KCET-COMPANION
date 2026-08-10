@@ -50,9 +50,17 @@ export default function PracticeSession() {
 
         <div className="rounded-3xl bg-white/5 border border-white/10 p-8">
 
-          <h2 className="text-2xl font-semibold mb-8">
-            <MathText text={currentQuestion.question} />
+          <h2 className="text-2xl font-semibold mb-6">
+              <MathText text={currentQuestion.question} />
           </h2>
+
+             {currentQuestion.media?.questionImage && (
+                    <img
+                      src={currentQuestion.media.questionImage}
+                      alt="Question"
+                      className="mx-auto mb-8 max-h-80 rounded-lg object-contain"
+                   />
+              )}
 
           <div className="grid gap-4">
 
