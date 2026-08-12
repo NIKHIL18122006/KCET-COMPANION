@@ -11,8 +11,8 @@ export default function PracticeSession() {
     return <Navigate to="/session" replace />;
   }
 
-  const { subject, chapter, questions } = state;
-
+  const { subject, chapter, questions, year } = state;
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [checkedQuestions, setCheckedQuestions] = useState({});
@@ -39,7 +39,7 @@ export default function PracticeSession() {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold">
-              {subject} - {chapter}
+              {subject} - {chapter === undefined ? year +" "+"("+currentQuestion.chapter + ")": chapter}
             </h1>
 
             <p className="text-gray-400 mt-2">

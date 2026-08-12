@@ -12,6 +12,9 @@ import Profile from "../pages/Profile";
 import Topics from "../pages/Topics";
 import NumberofQuestions from "../pages/NumberofQuestions";
 import PracticeSetup from "../pages/PracticeSetup";
+import Test from "../pages/Test"
+import TestResult from "../pages/TestResult";
+import Pyqyear from "../pages/Pyqyear";
 
 function Approutes(){
     return(
@@ -22,9 +25,19 @@ function Approutes(){
                     <Dashboard/>
                 </ProtectedRoute>
             }/>
-
+            <Route path="/test" element = {
+                <ProtectedRoute>
+                    <Test/>
+                </ProtectedRoute>
+            }/>
             <Route path="/ai" element={<ProtectedRoute>
                     <AI/>
+                </ProtectedRoute>}/>
+            <Route path="/pyq-years" element={<ProtectedRoute>
+                    <Pyqyear/>
+                </ProtectedRoute>}/>
+            <Route path="/test-result" element={<ProtectedRoute>
+                    <TestResult/>
                 </ProtectedRoute>}/>
             <Route path="/pyqs" element={<ProtectedRoute>
                     <Pyqs/>
