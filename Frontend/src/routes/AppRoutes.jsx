@@ -7,7 +7,6 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import Practice from "../pages/Practice";
 import Pyqs from "../pages/Pyqs";
 import Mocktest from "../pages/Mocktest";
-import AI from "../pages/AI";
 import Profile from "../pages/Profile";
 import Topics from "../pages/Topics";
 import NumberofQuestions from "../pages/NumberofQuestions";
@@ -30,9 +29,6 @@ function Approutes(){
                     <Test/>
                 </ProtectedRoute>
             }/>
-            <Route path="/ai" element={<ProtectedRoute>
-                    <AI/>
-                </ProtectedRoute>}/>
             <Route path="/pyq-years" element={<ProtectedRoute>
                     <Pyqyear/>
                 </ProtectedRoute>}/>

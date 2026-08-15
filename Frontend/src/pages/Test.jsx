@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { useLocation,useNavigate } from "react-router-dom";
 import MathText from "../components/MathText";
-
+import {saveTestResult} from "../services/testService"
 
 export default function Test() {
   const navigate = useNavigate();
@@ -108,28 +108,47 @@ export default function Test() {
   // SUBMIT
   // -----------------------------
 
-  const handleSubmit = () => {
+ const handleSubmit = async () => {
   let correct = 0;
+  let attempted = 0;
 
   for (let i = 0; i < questions.length; i++) {
     const selectedIndex = answers[questions[i].id];
 
-    if (
-      selectedIndex !== undefined &&
-      questions[i].correct_answer ===
+    if (selectedIndex !== undefined) {
+      attempted++;
+
+      if (
+        questions[i].correct_answer ===
         String.fromCharCode(65 + selectedIndex)
-    ) {
-      correct++;
+      ) {
+        correct++;
+      }
     }
   }
+
+  const wrong = attempted - correct;
+
+  // Navigate immediately
   navigate("/test-result", {
-  state: {
-    correct,
-    total: questions.length,
-    attempted: Object.keys(answers).length,
-  },
-});
-  console.log(correct);
+    state: {
+      correct,
+      total: questions.length,
+      attempted,
+    },
+  });
+
+  // Save result in backend
+  try {
+    await saveTestResult({
+      subject: state.subject,
+      totalQuestions: questions.length,
+      correctAnswers: correct,
+      wrongAnswers: wrong,
+    });
+  } catch (error) {
+    console.error("Failed to save test result:", error);
+  }
 };
 // Later:
     // POST /api/mock-tests/:attemptId/submit
@@ -143,7 +162,7 @@ export default function Test() {
 
           <div>
             <p className="text-sm text-gray-400">
-              {state.subjects} Mock Test
+              {state.subject} Mock Test
             </p>
 
             <h1 className="mt-1 text-xl font-bold">

@@ -24,12 +24,6 @@ const subjects = [
     description: "Strengthen Algebra and Calculus with topic-wise practice.",
     color: "from-violet-500 to-purple-600",
   },
-  {
-    icon: Dna,
-    title: "Biology",
-    description: "Revise diagrams, concepts, and NCERT-based questions.",
-    color: "from-pink-500 to-rose-600",
-  },
 ];
 
 export default function Subjects() {
@@ -47,7 +41,7 @@ export default function Subjects() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {subjects.map((subject) => {
             const Icon = subject.icon;
 

@@ -2,6 +2,12 @@ import { useLocation, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MathText from "../components/MathText";
+import { ChevronLeft, ChevronRight, Currency,Sparkles } from "lucide-react";
+import { explainQuestion } from "../services/aiService";
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 export default function PracticeSession() {
   const navigate = useNavigate();
@@ -13,14 +19,25 @@ export default function PracticeSession() {
 
   const { subject, chapter, questions, year } = state;
   
+  const [explanation, setExplanation] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [checkedQuestions, setCheckedQuestions] = useState({});
+
+  if (!state || !state.questions) {
+    return <Navigate to="/session" replace />;
+  }
 
   const selectedOption = answers[currentIndex] || null;
   const isAnswerChecked = checkedQuestions[currentIndex] || false;
   
   const currentQuestion = questions[currentIndex];
+  function changeQuestion(index) {
+  setCurrentIndex(index);
+  setExplanation("");
+  setAiLoading(false);
+  }
   function checkAnswer(){
     if(selectedOption === null){
         alert("Please select an option before checking the answer.");
@@ -31,6 +48,27 @@ export default function PracticeSession() {
         [currentIndex]: true
     }));
   }
+
+  const normalizeMath = (text) => {
+  return text
+    .replace(/\\\[/g, "$$")
+    .replace(/\\\]/g, "$$")
+    .replace(/\\\(/g, "$")
+    .replace(/\\\)/g, "$");
+};
+  const handleAskAI = async () => {
+  try {
+    setAiLoading(true);
+
+    const result = await explainQuestion(currentQuestion);
+
+    setExplanation(normalizeMath(result));
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setAiLoading(false);
+  }
+};
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#050816] via-[#0B1120] to-[#111827] text-white p-8">
 
@@ -153,43 +191,126 @@ export default function PracticeSession() {
 
           </div>
 
-          <div className="flex justify-between mt-10">
+         <div className="mt-10 flex items-center justify-between border-t border-white/10 pt-6">
 
-            <button
-              disabled={currentIndex === 0}
-              onClick={() => setCurrentIndex(currentIndex - 1)}
-              className="px-6 py-3 rounded-xl bg-gray-700 disabled:opacity-50"
-            >
-              Previous
-            </button>
-            <button
-                onClick = {checkAnswer}
-                className="px-6 py-3 rounded-xl bg-blue-600 disabled:opacity-50"
-            >
-                Check Answer
-            </button>
-            {currentIndex !== questions.length - 1 ? (
-              <button
-              onClick={() => {
-                setCurrentIndex(currentIndex + 1)
-              }}
-              className="px-6 py-3 rounded-xl bg-blue-600 disabled:opacity-50"
-            >
-              Next
-            </button>) : (
-            <button 
-               onClick = {() => navigate("/session" , { state: { subject: state.subject, chapter: state.chapter } })}
-                className="px-6 py-3 rounded-xl bg-red-600"
-            >
-              End Practice
-            </button>)
+  {/* Previous */}
+  <button
+    disabled={currentIndex === 0}
+    onClick={() => changeQuestion(currentIndex - 1)}
+    className="flex items-center gap-2 rounded-xl bg-gray-700 px-6 py-3
+               text-sm font-medium text-white transition
+               hover:bg-gray-600
+               disabled:cursor-not-allowed disabled:opacity-40"
+  >
+    <ChevronLeft size={18} />
+    Previous
+  </button>
+
+  {/* Center buttons */}
+  <div className="flex items-center gap-3">
+
+    {/* Check Answer */}
+    <button
+      onClick={checkAnswer}
+      className="rounded-xl bg-blue-600 px-6 py-3
+                 text-sm font-semibold text-white transition
+                 hover:bg-blue-500"
+    >
+      Check Answer
+    </button>
+
+    {/* Ask AI */}
+    <button
+      onClick={handleAskAI}
+      disabled={aiLoading}
+      className="flex items-center gap-2 rounded-xl
+                 border border-purple-500/30
+                 bg-purple-600 px-5 py-3
+                 text-sm font-semibold text-white
+                 transition-all duration-200
+                 hover:bg-purple-500
+                 disabled:cursor-not-allowed
+                 disabled:opacity-50"
+    >
+      ✨
+      {aiLoading ? "Thinking..." : "Ask AI"}
+    </button>
+
+  </div>
+
+      {/* Next / End Practice */}
+      {currentIndex !== questions.length - 1 ? (
+    
+        <button
+          onClick={() => changeQuestion(currentIndex + 1)}
+          className="flex items-center gap-2 rounded-xl bg-blue-600
+                     px-6 py-3 text-sm font-semibold text-white
+                     transition hover:bg-blue-500"
+        >
+          Next
+          <ChevronRight size={18} />
+        </button>
+    
+      ) : (
+    
+        <button
+          onClick={() =>
+            year === undefined
+              ? navigate("/session", {
+                  state: {
+                    subject: state.subject,
+                    chapter: state.chapter,
+                  },
+                  })
+                : navigate("/pyq-years", {
+                    state: {
+                      subject: state.subject,
+                    },
+                  })
             }
-          </div>
+            className="rounded-xl bg-red-600 px-6 py-3
+                       text-sm font-semibold text-white
+                       transition hover:bg-red-500"
+          >
+            End Practice
+        </button>
+      
+        )}
+      </div>
+        {explanation && (
+  <div className="mt-6 rounded-3xl border border-purple-500/20 bg-purple-500/5 p-6">
 
-        </div>
-
+    <div className="mb-5 flex items-center gap-3">
+      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-600/20">
+        <Sparkles size={20} className="text-purple-400" />
       </div>
 
+      <div>
+        <h2 className="font-semibold text-white">
+          AI Explanation
+        </h2>
+
+        <p className="text-sm text-gray-400">
+          Quick explanation
+        </p>
+      </div>
+    </div>
+
+    <div className="text-gray-300">
+      <ReactMarkdown
+        remarkPlugins={[remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+      >
+        {explanation}
+      </ReactMarkdown>
+    </div>
+
+  </div>
+)}
+      </div>
+        
+      </div>
+    
     </div>
   );
 }

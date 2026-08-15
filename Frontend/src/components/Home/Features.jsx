@@ -22,14 +22,8 @@ const features = [
       "Solve PYQs with detailed explanations to understand the exam pattern and question types.",
   },
   {
-    icon: GraduationCap,
-    title: "College Predictor",
-    description:
-      "Predict colleges based on your expected rank and category.",
-  },
-  {
     icon: Brain,
-    title: "AI Study Assistant",
+    title: "AI Study Assistance",
     description:
       "Get personalized recommendations and doubt support using AI.",
   },
@@ -38,12 +32,6 @@ const features = [
     title: "Performance Analytics",
     description:
       "Track accuracy, speed, strengths, and weak topics visually.",
-  },
-  {
-    icon: Sparkles,
-    title: "Personalized Learning",
-    description:
-      "Receive daily goals and smart revision plans tailored to you.",
   },
 ];
 
@@ -71,7 +59,7 @@ export default function Features() {
           </p>
         </motion.div>
 
-        <div className="grid gap-8 mt-16 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 mt-16 md:grid-cols-2 lg:grid-cols-2">
           {features.map((feature, index) => {
             const Icon = feature.icon;
 

@@ -34,13 +34,6 @@ export default function Dashboard() {
   color: "from-amber-500 to-orange-600",
   link :"/pyqs"
    },
-    {
-      title: "AI Tutor",
-      desc: "Ask doubts and understand concepts",
-      icon: PlayCircle,
-      color: "from-orange-500 to-red-500",
-      link:"/ai"
-    },
   ];
 
   return (
@@ -68,7 +61,7 @@ export default function Dashboard() {
             Quick Access
           </h2>
 
-          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
             {cards.map((card) => {
               const Icon = card.icon;
 

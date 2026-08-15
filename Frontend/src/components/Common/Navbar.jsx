@@ -9,7 +9,6 @@ const NAV_LINKS = [
   { label: "Practice", to: "/practice" },
   { label: "Mock Tests", to: "/mocktest" },
   { label: "PYQs", to: "/pyqs" },
-  { label: "Performance", to: "/performance" },
 ];
 
 export default function Navbar() {
