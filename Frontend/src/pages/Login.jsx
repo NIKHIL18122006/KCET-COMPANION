@@ -86,11 +86,16 @@ function Login() {
           </div>
 
           <button
-            type="submit"
-            className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 py-3 text-sm font-semibold text-white transition duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-600/30 sm:text-base"
-          >
-            Log In
-          </button>
+  type="submit"
+  disabled={loading}
+  className={`w-full py-3 rounded-lg font-semibold text-white transition-all duration-200 ${
+    loading
+      ? "bg-blue-600/50 cursor-not-allowed"
+      : "bg-blue-600 hover:bg-blue-700"
+  }`}
+>
+  {loading ? "Logging in..." : "Login"}
+</button>
 
         </form>
 
