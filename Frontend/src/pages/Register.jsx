@@ -7,12 +7,15 @@ function Register() {
   const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     try {
       const data = await authService.register({
@@ -33,6 +36,8 @@ function Register() {
       );
 
       navigate("/register");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,7 +76,8 @@ function Register() {
               placeholder="Enter your full name"
               value={full_name}
               onChange={(e) => setFullName(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 sm:text-base"
+              disabled={loading}
+              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 disabled:cursor-not-allowed disabled:opacity-60 sm:text-base"
             />
           </div>
 
@@ -90,7 +96,8 @@ function Register() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 sm:text-base"
+              disabled={loading}
+              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 disabled:cursor-not-allowed disabled:opacity-60 sm:text-base"
             />
           </div>
 
@@ -109,16 +116,29 @@ function Register() {
               placeholder="Create a password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 sm:text-base"
+              disabled={loading}
+              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 disabled:cursor-not-allowed disabled:opacity-60 sm:text-base"
             />
           </div>
 
           {/* Submit */}
           <button
             type="submit"
-            className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 py-3 text-sm font-semibold text-white transition duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-600/30 sm:text-base"
+            disabled={loading}
+            className={`w-full rounded-xl py-3 text-sm font-semibold text-white transition-all duration-200 sm:text-base ${
+              loading
+                ? "cursor-not-allowed bg-purple-500/40"
+                : "bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-600/30 active:scale-[0.98]"
+            }`}
           >
-            Create Account
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                Creating Account...
+              </span>
+            ) : (
+              "Create Account"
+            )}
           </button>
 
         </form>
@@ -128,7 +148,9 @@ function Register() {
           Already have an account?{" "}
           <Link
             to="/login"
-            className="font-semibold text-purple-400 hover:text-purple-300"
+            className={`font-semibold text-purple-400 hover:text-purple-300 ${
+              loading ? "pointer-events-none opacity-50" : ""
+            }`}
           >
             Log In
           </Link>
