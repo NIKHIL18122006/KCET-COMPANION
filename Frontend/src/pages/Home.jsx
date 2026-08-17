@@ -8,20 +8,20 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
   const { user, loading } = useAuth();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!loading && user) {
-            navigate("/dashboard");
-        }
-    }, [user, loading, navigate]);
+  useEffect(() => {
+    if (!loading && user) {
+      navigate("/dashboard");
+    }
+  }, [user, loading, navigate]);
 
   return (
-    <div>
+    <div className="min-h-screen overflow-x-hidden">
       <Hero />
       <Features />
       <HowItWorks />
       <Subjects />
     </div>
   );
-} 
+}

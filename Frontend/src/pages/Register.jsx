@@ -1,48 +1,61 @@
 import authService from "../services/authService";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Register() {
   const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
-  const {user, setUser, loading} = useAuth();
+  const { setUser } = useAuth();
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const data = await authService.register({
-      full_name,
-      email,
-      password,
-    });
-    setUser(data.user);
-    // navigate("/dashboard");
-    navigate("/dashboard");
-  } catch (error) {
-    console.error(error.response?.data?.message || error.message);
-    alert(error.response?.data?.message || error.message);
-    navigate("/register");
-  }
-};
+    try {
+      const data = await authService.register({
+        full_name,
+        email,
+        password,
+      });
+
+      setUser(data.user);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(
+        error.response?.data?.message || error.message
+      );
+
+      alert(
+        error.response?.data?.message || error.message
+      );
+
+      navigate("/register");
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#0B1226] flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-md rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-2xl">
-        <h1 className="text-center text-3xl font-bold text-white">
+    <div className="flex min-h-screen items-center justify-center overflow-x-hidden bg-[#0B1226] px-4 py-8 sm:px-6 sm:py-10">
+
+      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-xl sm:rounded-3xl sm:p-8">
+
+        {/* Heading */}
+        <h1 className="text-center text-2xl font-bold text-white sm:text-3xl">
           Create Account
         </h1>
 
-        <p className="mt-2 text-center text-gray-400">
+        <p className="mt-2 text-center text-sm leading-6 text-gray-400 sm:text-base">
           Join KCET Companion and start your preparation
         </p>
 
-        <form className="mt-8 space-y-5"
-         onSubmit={handleSubmit}
+        {/* Form */}
+        <form
+          className="mt-6 space-y-4 sm:mt-8 sm:space-y-5"
+          onSubmit={handleSubmit}
         >
+
           {/* Name */}
           <div>
             <label
@@ -56,8 +69,9 @@ function Register() {
               id="name"
               type="text"
               placeholder="Enter your full name"
+              value={full_name}
               onChange={(e) => setFullName(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"
+              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 sm:text-base"
             />
           </div>
 
@@ -74,8 +88,9 @@ function Register() {
               id="email"
               type="email"
               placeholder="Enter your email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"
+              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 sm:text-base"
             />
           </div>
 
@@ -92,19 +107,24 @@ function Register() {
               id="password"
               type="password"
               placeholder="Create a password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"
+              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 sm:text-base"
             />
           </div>
+
+          {/* Submit */}
           <button
             type="submit"
-            className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 py-3 font-semibold text-white transition duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-600/30"
+            className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 py-3 text-sm font-semibold text-white transition duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-600/30 sm:text-base"
           >
             Create Account
           </button>
+
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-400">
+        {/* Login */}
+        <p className="mt-5 text-center text-sm text-gray-400 sm:mt-6">
           Already have an account?{" "}
           <Link
             to="/login"
@@ -113,6 +133,7 @@ function Register() {
             Log In
           </Link>
         </p>
+
       </div>
     </div>
   );
