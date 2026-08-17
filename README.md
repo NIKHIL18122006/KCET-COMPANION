@@ -129,7 +129,7 @@ KCET-COMPANION/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/nikhil-m-star/KCET-COMPANION.git
+git clone https://github.com/NIKHIL18122006/KCET-COMPANION.git
 ```
 
 ```bash
