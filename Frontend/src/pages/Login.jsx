@@ -1,18 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import authService from "../services/authService";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     try {
       const data = await authService.login({
@@ -26,6 +28,8 @@ function Login() {
       console.error(
         error.response?.data?.message || error.message
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,7 +66,8 @@ function Login() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 sm:text-base"
+              disabled={loading}
+              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 disabled:cursor-not-allowed disabled:opacity-60 sm:text-base"
             />
           </div>
 
@@ -81,21 +86,30 @@ function Login() {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 sm:text-base"
+              disabled={loading}
+              className="w-full rounded-xl border border-white/10 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 disabled:cursor-not-allowed disabled:opacity-60 sm:text-base"
             />
           </div>
 
+          {/* Login Button */}
           <button
-  type="submit"
-  disabled={loading}
-  className={`w-full py-3 rounded-lg font-semibold text-white transition-all duration-200 ${
-    loading
-      ? "bg-blue-600/50 cursor-not-allowed"
-      : "bg-blue-600 hover:bg-blue-700"
-  }`}
->
-  {loading ? "Logging in..." : "Login"}
-</button>
+            type="submit"
+            disabled={loading}
+            className={`w-full rounded-xl py-3 font-semibold text-white transition-all duration-200 ${
+              loading
+                ? "cursor-not-allowed bg-purple-500/40"
+                : "bg-purple-600 hover:bg-purple-700 active:scale-[0.98]"
+            }`}
+          >
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                Logging in...
+              </span>
+            ) : (
+              "Login"
+            )}
+          </button>
 
         </form>
 
