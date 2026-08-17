@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import authService from "../services/authService";
-
+import { Navigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
@@ -30,28 +30,11 @@ export function AuthProvider({ children }) {
         try {
             await authService.logout();
             setUser(null);
+            <Navigate to="/home" replace />;
         } catch (error) {
             console.error(error);
         }
     };
-
-    if (loading) {
-        return (
-            <div id="auth-loader">
-                <div className="loader-logo">K</div>
-
-                <div className="loader-title">
-                    KCET Companion
-                </div>
-
-                <div className="loader-spinner"></div>
-
-                <div className="loader-text">
-                    Loading your preparation...
-                </div>
-            </div>
-        );
-    }
 
     return (
         <AuthContext.Provider
