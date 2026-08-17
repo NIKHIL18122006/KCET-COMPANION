@@ -12,9 +12,9 @@ import { useLocation } from "react-router-dom";
 
 function get(subject, classNum) {
     if(subject === "Physics" && classNum === 11){
-        return [ "Units & Measurements", "Motion in a Straight Line", "Motion in a Plane", "Laws of Motion", "Work Energy & Power", "Gravitation", "Oscillations", ];
+        return ["Units and Measurements","Motion in a Straight Line","Motion in a Plane","Laws of Motion","Work, Energy and Power","System of Particles and Rotational Motion","Gravitation","Mechanical Properties of Solids","Mechanical Properties of Fluids","Thermal Properties of Matter","Thermodynamics","Kinetic Theory","Oscillations","Waves"];
     }else if(subject === "Physics" && classNum === 12){
-        return [ "Electrostatics", "Current Electricity", "Magnetism", "Electromagnetic Induction", "Optics", "Modern Physics", ];
+        return ["Electric Charges and Fields","Electrostatic Potential and Capacitance","Current Electricity","Moving Charges and Magnetism","Magnetism and Matter","Electromagnetic Induction","Alternating Current","Electromagnetic Waves","Ray Optics and Optical Instruments","Wave Optics","Dual Nature of Radiation and Matter","Atoms","Nuclei","Semiconductor Electronics"];
     }else if(subject === "Chemistry" && classNum === 11){
         return["Some Basic Concepts of Chemistry","Structure of Atom","Classification of Elements and Periodicity","Chemical Bonding and Molecular Structure","States of Matter","Thermodynamics","Equilibrium","Redox Reactions","Hydrogen","The s-Block Elements","The p-Block Elements (Group 13 & 14)","Organic Chemistry - Some Basic Principles","Hydrocarbons","Environmental Chemistry",];
     }else if(subject === "Chemistry" && classNum === 12){
