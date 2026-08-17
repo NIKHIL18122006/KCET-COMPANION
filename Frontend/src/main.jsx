@@ -31,3 +31,8 @@ createRoot(document.getElementById("root")).render(
     </MathJaxContext>
   </StrictMode>
 );
+const loader = document.getElementById("initial-loader");
+
+if (loader) {
+  loader.remove();
+}
